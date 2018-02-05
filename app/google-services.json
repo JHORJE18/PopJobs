@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "844339517110",
+    "firebase_url": "https://popjobs-15083.firebaseio.com",
+    "project_id": "popjobs-15083",
+    "storage_bucket": "popjobs-15083.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:844339517110:android:501a46b793bebfa4",
+        "android_client_info": {
+          "package_name": "com.jhorje18.popjobs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "844339517110-iovfagdmh7lghqqu7n3m0ro94gfubv7a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jhorje18.popjobs",
+            "certificate_hash": "32db91a1308c57cafd741857078bb0377e78d922"
+          }
+        },
+        {
+          "client_id": "844339517110-2ae8ni31tpr269n48kmeohaajeratemf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUJH8nTQy-hhLHUWiR4AL9ZydgEP3rm7M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "844339517110-2ae8ni31tpr269n48kmeohaajeratemf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
