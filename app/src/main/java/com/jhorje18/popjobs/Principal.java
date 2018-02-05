@@ -48,11 +48,17 @@ public class Principal extends AppCompatActivity
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("clav");
+        DatabaseReference myRef = database.getReference("USER");
 
         Usuario obj = new Usuario();
-        obj.setNombre("JOrge");
+        obj.setNombre("JO");
         myRef.setValue(obj);
+
+        String clave = myRef.push().getKey();
+
+        //Insertamos registro
+        myRef.child(clave).setValue(obj);
+
     }
 
     @Override
