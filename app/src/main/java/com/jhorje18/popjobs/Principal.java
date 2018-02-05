@@ -45,20 +45,6 @@ public class Principal extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("USER");
-
-        Usuario obj = new Usuario();
-        obj.setNombre("JO");
-        myRef.setValue(obj);
-
-        String clave = myRef.push().getKey();
-
-        //Insertamos registro
-        myRef.child(clave).setValue(obj);
-
     }
 
     @Override
