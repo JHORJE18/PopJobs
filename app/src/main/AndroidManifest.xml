@@ -20,7 +20,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity android:name=".Login"></activity>
+=======
+        <activity android:name=".NuevoServicioActivity"
+            android:label="Nuevo Servicio"/>
+
+>>>>>>> 88f157cf6eb6583f574b56b75a632c003e3fa0b2
     </application>
 
 </manifest>

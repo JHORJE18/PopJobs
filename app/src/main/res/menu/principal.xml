@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/barr_search"
+        android:icon="@drawable/ic_search_white"
+        android:iconTint="@color/common_google_signin_btn_text_dark_default"
+        android:title="Buscar"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/barr_logout"
+        android:title="Cerrar Sesión"
+        android:icon="@drawable/ic_exit" />
 </menu>

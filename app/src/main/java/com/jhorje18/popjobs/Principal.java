@@ -1,5 +1,6 @@
 package com.jhorje18.popjobs;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -71,10 +72,7 @@ public class Principal extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        //TODO Eventos botones menu
 
         return super.onOptionsItemSelected(item);
     }
@@ -85,18 +83,19 @@ public class Principal extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        //TODO Establecer acciones botones
 
-        } else if (id == R.id.nav_slideshow) {
+        //Boton Nuevo Servicio
+        if (id == R.id.nav_nuevoServicio){
+            startActivity(new Intent(this, NuevoServicioActivity.class));
+        }
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        //Boton compartir
+        if (id == R.id.nav_compartir){
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, "Descargate la mejor app para ofercer servicios! http://popjobs.jhorje18.com");
+            startActivity(Intent.createChooser(intent, "Compartir con..."));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
