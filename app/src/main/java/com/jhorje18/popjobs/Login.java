@@ -15,9 +15,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.security.*;
 
@@ -80,8 +83,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
     private void Test_Resultado_SingInGoogle(GoogleSignInResult result) {
         if(result.isSuccess()){
-           // Test_New_User();
-            Abrir_Activity_Principal();
+            Test_New_User(result.getSignInAccount().getId());
         }else{
             Toast.makeText(getApplicationContext(), String.valueOf(result.getStatus().getStatusCode()), Toast.LENGTH_LONG).show();
             Toast.makeText(getApplicationContext(), "Login con Google Fallido", Toast.LENGTH_LONG).show();
@@ -94,8 +96,23 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         finish();
     }
 
-    private void Test_New_User() {
-        //Query q = referenciaUsuarios.child()
+    private void Test_New_User(String idUser) {
+        Query q = referenciaUsuarios.child(idUser);
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    Abrir_Activity_Principal();
+                }else{
+                    //Abrir_Activity_Registrarse
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(), databaseError.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
