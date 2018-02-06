@@ -135,6 +135,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="GUARDAR" />
+
+            <Button
+                android:id="@+id/btnSalir"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:text="Cancelar" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

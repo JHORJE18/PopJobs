@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
     private ImageView imagenServicio;
     private Fragment fragmentMapa;
     private Button guardarServicio;
+    private Button cancelarServicio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,14 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
         categorias = (Spinner) findViewById(R.id.spinnerCategoriasServicio);
         //fragmentMapa = (Fragment) findViewById(R.id.fragmentMapa);
         guardarServicio = (Button) findViewById(R.id.btnGuardarNuevoServicio);
+        cancelarServicio = (Button) findViewById(R.id.btnSalir);
+
+        cancelarServicio.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     public void onFragmentInteraction(Uri uri){}
