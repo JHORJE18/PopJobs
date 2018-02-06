@@ -3,36 +3,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="none"
+        android:id="@+id/nav_catNuevo">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_nuevoServicio"
+            android:icon="@drawable/ic_add_box"
+            android:title="Nuevo Servicio" />
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
-
+    <group android:checkableBehavior="none"
+        android:id="@+id/nav_catPersonal">
+        <item
+            android:id="@+id/nav_misServicios"
+            android:icon="@drawable/ic_bussines"
+            android:title="Mis servicios" />
+        <item
+            android:id="@+id/nav_mensajes"
+            android:icon="@drawable/ic_mensajes"
+            android:title="Mensajes" />
+        <item
+            android:id="@+id/nav_busqueda"
+            android:icon="@drawable/ic_busqueda"
+            android:title="Busqueda" />
+        <item
+            android:id="@+id/nav_compartir"
+            android:icon="@drawable/ic_share"
+            android:title="Compartir" />
+        <item
+            android:id="@+id/nav_ayuda"
+            android:icon="@drawable/ic_info"
+            android:title="Ayuda" />
+    </group>
 </menu>
