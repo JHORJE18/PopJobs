@@ -16,13 +16,16 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jhorje18.popjobs.Objetos.Usuario;
 
 public class Principal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
     private Button b;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +90,12 @@ public class Principal extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-
+        //Cerrar Sesión
+        if (id == R.id.barr_logout){
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(Principal.this, SplashActivity.class));
+            finish();
+        }
 
         return super.onOptionsItemSelected(item);
     }
