@@ -42,7 +42,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         referenciaUsuarios = FirebaseDatabase.getInstance().getReference("usuarios");
 
         //Iniciaciones GoogleApi
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -52,6 +51,8 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+
+        signInButtonGoogle = (SignInButton) findViewById(R.id.btn_SingIn_Google) ;
         signInButtonGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,6 +82,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
            // Test_New_User();
             Abrir_Activity_Principal();
         }else{
+            Toast.makeText(getApplicationContext(), String.valueOf(result.getStatus().getStatusCode()), Toast.LENGTH_LONG).show();
             Toast.makeText(getApplicationContext(), "Login con Google Fallido", Toast.LENGTH_LONG).show();
         }
     }
@@ -97,6 +99,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+        Toast.makeText(getApplicationContext(), connectionResult.getErrorMessage(), Toast.LENGTH_LONG).show();
     }
 }

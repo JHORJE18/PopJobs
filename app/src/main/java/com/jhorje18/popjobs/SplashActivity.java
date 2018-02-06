@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(SplashActivity.this, "No has Iniciado Sesión", Toast.LENGTH_SHORT).show();
                     //TODO Redirigir a la pantalla Inicio de Sesión
-                    startActivity(new Intent(SplashActivity.this,Principal.class));
+                    startActivity(new Intent(SplashActivity.this, Login.class));
                     finish();
                 }
 
