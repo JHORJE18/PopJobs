@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/barr_search"
-        android:icon="@drawable/ic_busqueda"
+        android:icon="@drawable/ic_search_white"
         android:iconTint="@color/common_google_signin_btn_text_dark_default"
         android:title="Buscar"
         app:showAsAction="always" />
