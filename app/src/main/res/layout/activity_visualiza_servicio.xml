@@ -60,6 +60,13 @@
                     android:textSize="30sp" />
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mapa"
+                android:textSize="24sp" />
+
             <FrameLayout
                 android:id="@+id/FraMapa"
                 android:layout_width="match_parent"
