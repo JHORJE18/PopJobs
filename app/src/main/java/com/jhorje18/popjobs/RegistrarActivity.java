@@ -27,6 +27,7 @@ public class RegistrarActivity extends AppCompatActivity {
 
     EditText TIEditText_Nombre_Apellidos,TIEditText_Nacimiento, TIEditText_Vivienda, TIEditText_Telefono;
     ImageView fotoPerfil;
+
     Bundle bundleGoogle;
     DatabaseReference dbReference;
 
@@ -81,7 +82,7 @@ public class RegistrarActivity extends AppCompatActivity {
         if(validadores.editNombreValido(nombreApellidos,TIEditText_Nombre_Apellidos) && validadores.editNacimientoValido(fechaNacimiento,this) && !validadores.vacio(direccion) && !TextUtils.isEmpty(TIEditText_Telefono.getText())) {
             Usuario usuarioNuevo = new Usuario(UID,nombreApellidos,fechaNacimiento,direccion,correo,"EN PRUEBA",telefono);
             //Nodo usuarios
-            dbReference = FirebaseDatabase.getInstance().getReference("usuarios");
+            dbReference = FirebaseDatabase.getInstance().getReference("USUARIOS");
             //Se guarda el usuario
             dbReference.child(UID).setValue(usuarioNuevo);
 
@@ -92,6 +93,12 @@ public class RegistrarActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Faltan campos por rellenar", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void listenerCancelar(View view) {
+        Intent intent=new Intent();
+        setResult(RESULT_CANCELED,intent);
+        finish();
     }
 
     @Override
