@@ -75,7 +75,7 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
                         final String claveS = bbddS.push().getKey();
 
 
-                        Servicio servicio = new Servicio(nombreServicio.getText().toString(), descripcionServicio.getText().toString(), categorias.getSelectedItem().toString(), precioEnFloat,claveUsu,claveS,1,1, currentDateandTime,imagenServicio);
+                        Servicio servicio = new Servicio(nombreServicio.getText().toString(), descripcionServicio.getText().toString(), categorias.getSelectedItem().toString(), precioEnFloat,claveUsu,claveS,1,1, currentDateandTime,"");
 
                         bbddS.child(claveS).setValue(servicio);
                         Toast.makeText(NuevoServicioActivity.this, "Servicio añadido", Toast.LENGTH_SHORT).show();

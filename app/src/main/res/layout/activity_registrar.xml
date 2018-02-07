@@ -18,7 +18,8 @@
             android:id="@+id/TIEditText_Nombre_Apellidos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nombre y Apellidos" />
+            android:hint="Nombre y Apellidos"
+            android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -29,7 +30,8 @@
             android:id="@+id/TIEditText_Vivienda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Direccion" />
+            android:hint="Direccion"
+            android:singleLine="true" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -44,7 +46,8 @@
             android:layout_weight="1"
             android:focusable="false"
             android:hint="Fecha de nacimiento"
-            android:onClick="listenerNacimiento" />
+            android:onClick="listenerNacimiento"
+            android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -56,7 +59,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Telefono"
-            android:inputType="phone" />
+            android:inputType="phone"
+            android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
 
     <TextView
