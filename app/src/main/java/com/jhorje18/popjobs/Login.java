@@ -117,7 +117,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                                     String email = firebaseUser.getEmail();
                                     String image = "En prueba";
 
-                                    Usuario u = new Usuario(userUID,nombre,fechaNacimiento,direccion,email,image,tel);
+                                    Usuario u = new Usuario(userUID,nombre,fechaNacimiento,direccion,email,image,tel, googleSignInResult.getSignInAccount().getId());
                                     referenciaUsuarios.child(userUID).setValue(u);
 
                                     Intent i = new Intent(getApplicationContext(), Principal.class);
@@ -197,7 +197,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
     private void Test_New_User() {
         String idUser = googleSignInResult.getSignInAccount().getId();
-        Query q = referenciaUsuarios.child(idUser);
+        Query q = referenciaUsuarios.child("idGoogle").equalTo(idUser);
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
