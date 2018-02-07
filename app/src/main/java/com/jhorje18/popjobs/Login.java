@@ -2,8 +2,10 @@ package com.jhorje18.popjobs;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -16,6 +18,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -41,6 +46,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     //GoogleApi
     GoogleApiClient googleApiClient;
     SignInButton signInButtonGoogle;
+    GoogleSignInResult googleSignInResult;
 
     //Firebase
     DatabaseReference referenciaUsuarios;
@@ -88,32 +94,74 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         switch (requestCode){
             case GOOGLE_SINGIN_INTENT:
-                GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-                Test_Resultado_SingInGoogle(result);
+                googleSignInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+                Test_Resultado_SingInGoogle();
                 break;
             case ACTIVITY_REGISTRO:
                 switch (resultCode){
                     case RESULT_OK:
+                        AuthCredential credential = GoogleAuthProvider.getCredential(googleSignInResult.getSignInAccount().getIdToken(), null);
+                        Toast.makeText(getApplicationContext(),googleSignInResult.getSignInAccount().getIdToken(),Toast.LENGTH_LONG).show();
+                        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(task.isSuccessful()){
+                                    Intent i = new Intent(getApplicationContext(), Principal.class);
+                                    startActivity(i);
+                                    finish();
+                                }else{
+
+                                    Toast.makeText(getApplicationContext(),"Error Logeando con las credenciales de google en firebase", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
                         break;
                     case RESULT_CANCELED:
+                        googleApiClient.connect();
+                        googleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                            @Override
+                            public void onConnected(@Nullable Bundle bundle) {
+                                if(googleApiClient.isConnected()){
+                                    Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                                        @Override
+                                        public void onResult(@NonNull Status status) {
+                                            if(status.isSuccess()){
+                                                Toast.makeText(getApplicationContext(), "Deslogueado correctamente de google.", Toast.LENGTH_LONG).show();
+                                            }else{
+                                                Toast.makeText(getApplicationContext(), "Problemas deslogeando de google.", Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+
+                            @Override
+                            public void onConnectionSuspended(int i) {
+                                Log.d("#TEMP", "Google API Client Connection Suspended");
+                            }
+                        });
+                        /*
+                        startActivity(new Intent(this,SplashActivity.class));
+                        finish();
                         break;
+                        */
                 }
                 break;
 
         }
     }
 
-    private void Test_Resultado_SingInGoogle(GoogleSignInResult result) {
-        if(result.isSuccess()){
-            Test_New_User(result);
+    private void Test_Resultado_SingInGoogle() {
+        if(googleSignInResult.isSuccess()){
+            Test_New_User();
         }else{
-            Toast.makeText(getApplicationContext(), String.valueOf(result.getStatus().getStatusCode()), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), String.valueOf(googleSignInResult.getStatus().getStatusCode()), Toast.LENGTH_LONG).show();
             Toast.makeText(getApplicationContext(), "Login con Google Fallido", Toast.LENGTH_LONG).show();
         }
     }
 
-    private void Abrir_Activity_Principal(final GoogleSignInAccount account) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+    private void Abrir_Activity_Principal() {
+        AuthCredential credential = GoogleAuthProvider.getCredential(googleSignInResult.getSignInAccount().getIdToken(), null);
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -122,23 +170,28 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     startActivity(i);
                     finish();
                 }else{
-                    Toast.makeText(getApplicationContext(),"Error Logeando con las credenciales de google en firebase", Toast.LENGTH_LONG).show();
+                    Log.w("#TEMP", "signInWithCredential:failure", task.getException());
+                    Toast.makeText(getApplicationContext(), "Authentication failed.",
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
     private void Abrir_Activity_Registrarse() {
-      //  Intent i = new Intent(this, )
+       Intent i = new Intent(this, RegistrarActivity.class);
+       i.putExtra("userUID", googleSignInResult.getSignInAccount().getId());
+       i.putExtra("userEmail", googleSignInResult.getSignInAccount().getEmail());
+       startActivityForResult(i, ACTIVITY_REGISTRO);
     }
 
-    private void Test_New_User(final GoogleSignInResult result) {
-        String idUser = result.getSignInAccount().getId();
+    private void Test_New_User() {
+        String idUser = googleSignInResult.getSignInAccount().getId();
         Query q = referenciaUsuarios.child(idUser);
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    Abrir_Activity_Principal(result.getSignInAccount());
+                    Abrir_Activity_Principal();
                 }else{
                     Abrir_Activity_Registrarse(); //En el activity recoger el la cuenta y generar credencial.
                 }
