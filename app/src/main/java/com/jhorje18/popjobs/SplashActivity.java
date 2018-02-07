@@ -36,6 +36,7 @@ public class  SplashActivity extends AppCompatActivity implements GoogleApiClien
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        
         //Iniciaciones Firebase
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -84,6 +85,8 @@ public class  SplashActivity extends AppCompatActivity implements GoogleApiClien
                 }
             }
         }, DURACION_SPLASH);
+
+        startActivity(new Intent(this,Principal.class));
     }
 
     private void Abrir_Acitivty_Login() {

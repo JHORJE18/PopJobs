@@ -7,21 +7,61 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.jhorje18.popjobs.Objetos.Servicio;
 
 import java.util.Calendar;
 
 public class VisualizaServicioActivity extends AppCompatActivity {
 
-
+    private TextView nombre, Descripcion, precio, PVP, mapa, fecha;
+    private ImageView imagen;
+    private Button perfil, mensaje;
+    //private FrameLayout frameMapa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visualiza_servicio);
 
+        //nombre del servicio
+        nombre =(TextView)findViewById(R.id.TextNombreServicio);
+        imagen = (ImageView) findViewById(R.id.IdImage);
+        Descripcion = (TextView) findViewById(R.id.TextDescripcion);
+        precio = (TextView) findViewById(R.id.txtPecio);
+        PVP = (TextView) findViewById(R.id.TextPVP);
+        mapa = (TextView) findViewById(R.id.textMapa);
+        //frameMapa = (FrameLayout) findViewById(R.id.textMapa);
+        fecha = (TextView) findViewById(R.id.TxtFecha);
+        perfil = (Button) findViewById(R.id.btnPerfil);
+        mensaje = (Button) findViewById(R.id.btnMensaje);
+
+        perfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        mensaje.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //
+            }
+        });
+
+        //Creamos servicio
+        Servicio ser = new Servicio("prueba","estos es la descripcion",
+                " Categoria mecanico",+4f, "","",+0f,+0f,
+                "22/2/2018",null);
+        CargarDatos(ser);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -47,6 +87,14 @@ public class VisualizaServicioActivity extends AppCompatActivity {
     }
 
 
+    private void CargarDatos(Servicio obj){
+        nombre.setText(obj.getNombre());
+        //mostart imagen
+        Descripcion.setText(obj.getDescripcion());
+        //mostart ubicacion
+        PVP.setText(obj.getPrecio().toString());
+        fecha.setText(obj.getFecha());
 
+    }
 
 }
