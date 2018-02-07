@@ -41,6 +41,7 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_servicio);
 
+        //Vista
         nombreServicio = (EditText) findViewById(R.id.txtNombreServicio);
         descripcionServicio = (EditText) findViewById(R.id.txtDescripcionServicio);
         precioServicio = (EditText) findViewById(R.id.txtPrecioServicio);
@@ -49,6 +50,7 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
         //fragmentMapa = (FragmentMapaServicio) findViewById(R.id.fragmentMapa);
         guardarServicio = (Button) findViewById(R.id.btnGuardarNuevoServicio);
         cancelarServicio = (Button) findViewById(R.id.btnSalir);
+
         fba = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
@@ -56,7 +58,7 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
 
         bbdd = FirebaseDatabase.getInstance().getReference("USUARIOS");
         final String claveUsu = fba.getCurrentUser().getUid();
-        bbddS = FirebaseDatabase.getInstance().getReference(("Servicios"));
+        bbddS = FirebaseDatabase.getInstance().getReference(("SERVICIOS"));
 
         guardarServicio.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -73,8 +75,7 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
                         final String claveS = bbddS.push().getKey();
 
 
-
-                        Servicio servicio = new Servicio(nombreServicio.getText().toString(), descripcionServicio.getText().toString(), categoria, precioEnFloat,claveUsu,claveS,1,1, currentDateandTime,imagenServicio);
+                        Servicio servicio = new Servicio(nombreServicio.getText().toString(), descripcionServicio.getText().toString(), categorias.getSelectedItem().toString(), precioEnFloat,claveUsu,claveS,1,1, currentDateandTime,imagenServicio);
 
                         bbddS.child(claveS).setValue(servicio);
                         Toast.makeText(NuevoServicioActivity.this, "Servicio añadido", Toast.LENGTH_SHORT).show();
