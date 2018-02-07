@@ -14,10 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.jhorje18.popjobs.Extra.Validadores;
-import com.jhorje18.popjobs.Objetos.Usuario;
 
 import java.util.Calendar;
 
@@ -28,21 +25,17 @@ public class RegistrarActivity extends AppCompatActivity {
     EditText TIEditText_Nombre_Apellidos,TIEditText_Nacimiento, TIEditText_Vivienda, TIEditText_Telefono;
     ImageView fotoPerfil;
 
-    Bundle bundleGoogle;
-    DatabaseReference dbReference;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar);
-
-        bundleGoogle = getIntent().getExtras();
 
         TIEditText_Nombre_Apellidos = (EditText) findViewById(R.id.TIEditText_Nombre_Apellidos);
         TIEditText_Vivienda = (EditText) findViewById(R.id.TIEditText_Vivienda);
         TIEditText_Nacimiento = (EditText) findViewById(R.id.TIEditText_Nacimiento);
         TIEditText_Telefono = (EditText) findViewById(R.id.TIEditText_Telefono);
         fotoPerfil = (ImageView) findViewById(R.id.imageViewFoto);
+
     }
 
     public void listenerNacimiento(View view) {
@@ -69,26 +62,21 @@ public class RegistrarActivity extends AppCompatActivity {
     }
 
     public void listenerCrearUsuario(View view) {
-        String UID = bundleGoogle.getString("userUID");
         String nombreApellidos = TIEditText_Nombre_Apellidos.getText().toString();
         String fechaNacimiento = TIEditText_Nacimiento.getText().toString();
         String direccion = TIEditText_Vivienda.getText().toString();
-        String correo = bundleGoogle.getString("userEmail");
         int telefono = Integer.parseInt(TIEditText_Telefono.getText().toString());
-        Log.d("TELEFONO ",""+telefono);
         //String imagenKey = ;
+
         Validadores validadores = new Validadores();
-
         if(validadores.editNombreValido(nombreApellidos,TIEditText_Nombre_Apellidos) && validadores.editNacimientoValido(fechaNacimiento,this) && !validadores.vacio(direccion) && !TextUtils.isEmpty(TIEditText_Telefono.getText())) {
-            Usuario usuarioNuevo = new Usuario(UID,nombreApellidos,fechaNacimiento,direccion,correo,"EN PRUEBA",telefono);
-            //Nodo usuarios
-            dbReference = FirebaseDatabase.getInstance().getReference("USUARIOS");
-            //Se guarda el usuario
-            dbReference.child(UID).setValue(usuarioNuevo);
-
             //Se vuelve a la activity anterior
-
-            setResult(RESULT_OK,getIntent());
+            Intent intent = getIntent();
+            intent.putExtra("nombreApellidos",nombreApellidos);
+            intent.putExtra("fechaNacimiento",fechaNacimiento);
+            intent.putExtra("direccion",direccion);
+            intent.putExtra("telefono",telefono);
+            setResult(RESULT_OK,intent);
             finish();
         } else {
             Toast.makeText(this, "Faltan campos por rellenar", Toast.LENGTH_SHORT).show();

@@ -34,6 +34,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.jhorje18.popjobs.Objetos.Usuario;
 
 import java.security.*;
 
@@ -89,7 +90,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode){
@@ -106,11 +107,23 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
+                                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                                    String userUID = firebaseUser.getUid();
+                                    String nombre = data.getStringExtra("nombreApellidos");
+                                    String fechaNacimiento = data.getStringExtra("fechaNacimiento");
+                                    String direccion = data.getStringExtra("direccion");
+                                    int tel = data.getIntExtra("telefono",0);
+                                    String email = firebaseUser.getEmail();
+                                    String image = "En prueba";
+
+                                    Usuario u = new Usuario(userUID,nombre,fechaNacimiento,direccion,email,image,tel);
+                                    referenciaUsuarios.child(userUID).setValue(u);
+
                                     Intent i = new Intent(getApplicationContext(), Principal.class);
                                     startActivity(i);
                                     finish();
                                 }else{
-
                                     Toast.makeText(getApplicationContext(),"Error Logeando con las credenciales de google en firebase", Toast.LENGTH_LONG).show();
                                 }
                             }
@@ -171,7 +184,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     finish();
                 }else{
                     Log.w("#TEMP", "signInWithCredential:failure", task.getException());
-                    Toast.makeText(getApplicationContext(), "Authentication failed.",
+                    Toast.makeText(getApplicationContext(), "Authenticat ion failed.",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -179,8 +192,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     }
     private void Abrir_Activity_Registrarse() {
        Intent i = new Intent(this, RegistrarActivity.class);
-       i.putExtra("userUID", googleSignInResult.getSignInAccount().getId());
-       i.putExtra("userEmail", googleSignInResult.getSignInAccount().getEmail());
        startActivityForResult(i, ACTIVITY_REGISTRO);
     }
 
