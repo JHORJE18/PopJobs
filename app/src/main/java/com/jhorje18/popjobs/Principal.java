@@ -50,7 +50,7 @@ public class Principal extends AppCompatActivity
             public void onClick(View view) {
                 //Intent intent = new Intent(MainActivity.this,SegundaActivity.class);
                 //startActivity(intent);
-                Intent intent = new Intent(Principal.this,VisualizaServicioActivity.class);
+                Intent intent = new Intent(Principal.this,ListaServiciosActivity.class);
                 startActivity(intent);
 
             }

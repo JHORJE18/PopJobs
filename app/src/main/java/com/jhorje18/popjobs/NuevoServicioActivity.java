@@ -1,6 +1,7 @@
 package com.jhorje18.popjobs;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -57,6 +58,9 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
         bbdd = FirebaseDatabase.getInstance().getReference("USUARIOS");
         final String claveUsu = fba.getCurrentUser().getUid();
         bbddS = FirebaseDatabase.getInstance().getReference(("Servicios"));
+
+
+        //FALTA HACER EL METODO QUE DEJE SELECCIONAR LA IMAGEN
 
         guardarServicio.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -115,6 +119,7 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
             }
         });
     }
+
 
     public void onFragmentInteraction(Uri uri){}
 

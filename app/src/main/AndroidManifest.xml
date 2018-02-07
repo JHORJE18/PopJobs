@@ -28,8 +28,10 @@
             android:name=".NuevoServicioActivity"
             android:label="Nuevo Servicio" />
         <activity android:name=".RegistrarActivity" />
-        <activity android:name=".BusquedaServicioActivity"
-            android:label="Búsqueda"/>
+        <activity
+            android:name=".BusquedaServicioActivity"
+            android:label="Búsqueda" />
+        <activity android:name=".ListaServiciosActivity"></activity>
     </application>
 
 </manifest>
