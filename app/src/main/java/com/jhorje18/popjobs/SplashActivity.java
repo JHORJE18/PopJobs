@@ -14,6 +14,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -36,6 +37,7 @@ public class  SplashActivity extends AppCompatActivity implements GoogleApiClien
         //Iniciaciones Firebase
         firebaseAuth = FirebaseAuth.getInstance();
 
+
         //Iniciaciones Google Api
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -46,12 +48,24 @@ public class  SplashActivity extends AppCompatActivity implements GoogleApiClien
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if(firebaseAuth.getCurrentUser() != null){
                     Abrir_Activity_Principal();
                 }else{
+                    Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(@NonNull Status status) {
+                            if(status.isSuccess()){
+                                Toast.makeText(getApplicationContext(), "Deslogueado correctamente de google.", Toast.LENGTH_LONG).show();
+
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Problemas deslogeando de google.", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
                     Abrir_Acitivty_Login();
                 }
             }

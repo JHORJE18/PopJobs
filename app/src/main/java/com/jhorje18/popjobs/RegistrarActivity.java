@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.DatePickerDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -73,6 +74,7 @@ public class RegistrarActivity extends AppCompatActivity {
         String direccion = TIEditText_Vivienda.getText().toString();
         String correo = bundleGoogle.getString("userEmail");
         int telefono = Integer.parseInt(TIEditText_Telefono.getText().toString());
+        Log.d("TELEFONO ",""+telefono);
         //String imagenKey = ;
         Validadores validadores = new Validadores();
 
@@ -84,8 +86,8 @@ public class RegistrarActivity extends AppCompatActivity {
             dbReference.child(UID).setValue(usuarioNuevo);
 
             //Se vuelve a la activity anterior
-            Intent intent=new Intent();
-            setResult(RESULT_OK,intent);
+
+            setResult(RESULT_OK,getIntent());
             finish();
         } else {
             Toast.makeText(this, "Faltan campos por rellenar", Toast.LENGTH_SHORT).show();

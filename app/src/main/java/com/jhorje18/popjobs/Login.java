@@ -2,8 +2,10 @@ package com.jhorje18.popjobs;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -16,6 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -98,6 +101,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 switch (resultCode){
                     case RESULT_OK:
                         AuthCredential credential = GoogleAuthProvider.getCredential(googleSignInResult.getSignInAccount().getIdToken(), null);
+                        Toast.makeText(getApplicationContext(),googleSignInResult.getSignInAccount().getIdToken(),Toast.LENGTH_LONG).show();
                         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -106,24 +110,41 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                                     startActivity(i);
                                     finish();
                                 }else{
+
                                     Toast.makeText(getApplicationContext(),"Error Logeando con las credenciales de google en firebase", Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
                         break;
                     case RESULT_CANCELED:
-                        Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                        googleApiClient.connect();
+                        googleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
                             @Override
-                            public void onResult(@NonNull Status status) {
-                                if(status.isSuccess()){
-                                    Toast.makeText(getApplicationContext(), "Deslogueado correctamente de google.", Toast.LENGTH_LONG).show();
-                                    
-                                }else{
-                                    Toast.makeText(getApplicationContext(), "Problemas deslogeando de google.", Toast.LENGTH_LONG).show();
+                            public void onConnected(@Nullable Bundle bundle) {
+                                if(googleApiClient.isConnected()){
+                                    Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                                        @Override
+                                        public void onResult(@NonNull Status status) {
+                                            if(status.isSuccess()){
+                                                Toast.makeText(getApplicationContext(), "Deslogueado correctamente de google.", Toast.LENGTH_LONG).show();
+                                            }else{
+                                                Toast.makeText(getApplicationContext(), "Problemas deslogeando de google.", Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    });
                                 }
                             }
+
+                            @Override
+                            public void onConnectionSuspended(int i) {
+                                Log.d("#TEMP", "Google API Client Connection Suspended");
+                            }
                         });
+                        /*
+                        startActivity(new Intent(this,SplashActivity.class));
+                        finish();
                         break;
+                        */
                 }
                 break;
 
@@ -149,7 +170,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     startActivity(i);
                     finish();
                 }else{
-                    Toast.makeText(getApplicationContext(),"Error Logeando con las credenciales de google en firebase", Toast.LENGTH_LONG).show();
+                    Log.w("#TEMP", "signInWithCredential:failure", task.getException());
+                    Toast.makeText(getApplicationContext(), "Authentication failed.",
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         });
