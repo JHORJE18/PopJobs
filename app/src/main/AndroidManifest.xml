@@ -23,11 +23,13 @@
         <activity android:name=".Login" />
         <activity
             android:name=".VisualizaServicioActivity"
-            android:label="Servicio"></activity>
+            android:label="Servicio" />
         <activity
             android:name=".NuevoServicioActivity"
             android:label="Nuevo Servicio" />
-        <activity android:name=".RegistrarActivity"></activity>
+        <activity android:name=".RegistrarActivity" />
+        <activity android:name=".BusquedaServicioActivity"
+            android:label="Búsqueda"/>
     </application>
 
 </manifest>
