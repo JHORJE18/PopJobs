@@ -23,6 +23,7 @@ public class ListaServiciosActivity extends AppCompatActivity {
 
         registerForContextMenu(lvServicios);
 
+        /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,7 +32,7 @@ public class ListaServiciosActivity extends AppCompatActivity {
                 startActivity(i);
 
             }
-        });
+        });*/
     }
 
 

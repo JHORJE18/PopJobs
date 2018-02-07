@@ -124,7 +124,7 @@ public class Principal extends AppCompatActivity
                                 if(status.isSuccess()){
                                     Toast.makeText(getApplicationContext(), "Deslogueado correctamente de google.", Toast.LENGTH_LONG).show();
                                 }else{
-                                    Toast.makeText(getApplicationContext(), "Problemas deslogeando de google.", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Problemas deslogeando de google." + status.getStatus().toString(), Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
