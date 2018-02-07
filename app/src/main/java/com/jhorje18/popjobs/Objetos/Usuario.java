@@ -14,12 +14,13 @@ public class Usuario {
     private String correo;
     private String imagenKey;
     private int telefono;
+    private String idGoogle;
 
     public Usuario() {
 
     }
 
-    public Usuario(String uid, String nombreApellidos, String fechaNacimiento, String direccion, String correo, String imagenKey, int telefono) {
+    public Usuario(String uid, String nombreApellidos, String fechaNacimiento, String direccion, String correo, String imagenKey, int telefono, String idGoogle) {
         this.uid = uid;
         this.nombreApellidos = nombreApellidos;
         this.fechaNacimiento = fechaNacimiento;
@@ -27,6 +28,15 @@ public class Usuario {
         this.correo = correo;
         this.imagenKey = imagenKey;
         this.telefono = telefono;
+        this.idGoogle = idGoogle;
+    }
+
+    public String getIdGoogle() {
+        return idGoogle;
+    }
+
+    public void setIdGoogle(String idGoogle) {
+        this.idGoogle = idGoogle;
     }
 
     public String getUid() {
