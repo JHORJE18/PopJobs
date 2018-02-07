@@ -3,8 +3,10 @@ package com.jhorje18.popjobs;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -55,15 +57,27 @@ public class  SplashActivity extends AppCompatActivity implements GoogleApiClien
                 if(firebaseAuth.getCurrentUser() != null){
                     Abrir_Activity_Principal();
                 }else{
-                    Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                    googleApiClient.connect();
+                    googleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
                         @Override
-                        public void onResult(@NonNull Status status) {
-                            if(status.isSuccess()){
-                                Toast.makeText(getApplicationContext(), "Deslogueado correctamente de google.", Toast.LENGTH_LONG).show();
-
-                            }else{
-                                Toast.makeText(getApplicationContext(), "Problemas deslogeando de google.", Toast.LENGTH_LONG).show();
+                        public void onConnected(@Nullable Bundle bundle) {
+                            if(googleApiClient.isConnected()){
+                                Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                                    @Override
+                                    public void onResult(@NonNull Status status) {
+                                        if(status.isSuccess()){
+                                            Toast.makeText(getApplicationContext(), "Deslogueado correctamente de google.", Toast.LENGTH_LONG).show();
+                                        }else{
+                                            Toast.makeText(getApplicationContext(), "Problemas deslogeando de google.", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
                             }
+                        }
+
+                        @Override
+                        public void onConnectionSuspended(int i) {
+                            Log.d("#TEMP", "Google API Client Connection Suspended");
                         }
                     });
                     Abrir_Acitivty_Login();
