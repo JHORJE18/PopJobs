@@ -19,13 +19,13 @@ public class Servicio {
     private float ubicacionX;
     private float ubicacionY;
     private String fecha;
-    private ImageView imagen;
+    private String imagen;
 
     public Servicio(){
 
     }
 
-    public Servicio(String nombre, String descripcion, String categoria, Float precio, String claveS, String claveUser, float ubicacionX, float ubicacionY, String fecha, ImageView imagen) {
+    public Servicio(String nombre, String descripcion, String categoria, Float precio, String claveS, String claveUser, float ubicacionX, float ubicacionY, String fecha, String imagen) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.categoria = categoria;
@@ -39,7 +39,6 @@ public class Servicio {
     }
 
     public String getNombre() {
-
         return nombre;
     }
 
@@ -111,11 +110,11 @@ public class Servicio {
         this.fecha = fecha;
     }
 
-    public ImageView getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(ImageView imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 }
