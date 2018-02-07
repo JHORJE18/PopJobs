@@ -102,7 +102,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 switch (resultCode){
                     case RESULT_OK:
                         AuthCredential credential = GoogleAuthProvider.getCredential(googleSignInResult.getSignInAccount().getIdToken(), null);
-                        Toast.makeText(getApplicationContext(),googleSignInResult.getSignInAccount().getIdToken(),Toast.LENGTH_LONG).show();
                         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -197,10 +196,12 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
     private void Test_New_User() {
         String idUser = googleSignInResult.getSignInAccount().getId();
-        Query q = referenciaUsuarios.child("idGoogle").equalTo(idUser);
+        Toast.makeText(getApplicationContext(), idUser, Toast.LENGTH_LONG).show();
+        Query q = referenciaUsuarios.orderByChild("idGoogle").equalTo(idUser);
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Toast.makeText(getApplicationContext(), dataSnapshot.toString(), Toast.LENGTH_LONG).show();
                 if(dataSnapshot.exists()){
                     Abrir_Activity_Principal();
                 }else{
