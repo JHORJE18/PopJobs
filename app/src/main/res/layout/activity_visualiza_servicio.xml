@@ -23,18 +23,18 @@
                 android:textAlignment="center"
                 android:textSize="24sp" />
 
-            <ImageView
-                android:id="@+id/IdImage"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
-                app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Aqui saldra la descripcion"
                 android:textAlignment="center"
                 android:textSize="30sp" />
+
+            <ImageView
+                android:id="@+id/IdImage"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
 
             <LinearLayout
                 android:layout_width="match_parent"

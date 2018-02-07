@@ -100,6 +100,9 @@ public class Principal extends AppCompatActivity
 
         //TODO Establecer acciones botones
 
+        //Boton Mis servicios
+        if (id ==R.id.nav_misServicios)
+            startActivity(new Intent(this,VisualizaServicioActivity.class));
         //Boton Nuevo Servicio
         if (id == R.id.nav_nuevoServicio){
             startActivity(new Intent(this, NuevoServicioActivity.class));
