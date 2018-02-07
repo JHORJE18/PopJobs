@@ -20,17 +20,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Login"></activity>
-
-        <activity android:name=".VisualizaServicioActivity"
-            android:label="Servicio">
-        </activity>
-
-
-        <activity android:name=".NuevoServicioActivity"
-            android:label="Nuevo Servicio"/>
-
+        <activity android:name=".Login" />
+        <activity
+            android:name=".VisualizaServicioActivity"
+            android:label="Servicio"></activity>
+        <activity
+            android:name=".NuevoServicioActivity"
+            android:label="Nuevo Servicio" />
+        <activity android:name=".RegistrarActivity"></activity>
     </application>
 
 </manifest>
