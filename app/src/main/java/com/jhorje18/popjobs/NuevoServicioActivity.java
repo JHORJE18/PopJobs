@@ -1,6 +1,8 @@
 package com.jhorje18.popjobs;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jhorje18.popjobs.Extra.Validadores;
 import com.jhorje18.popjobs.Objetos.Servicio;
 
 import java.text.SimpleDateFormat;
@@ -38,6 +41,9 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
     DatabaseReference bbdd;
     DatabaseReference bbddS;
     private FirebaseAuth fba;
+    SimpleDateFormat sdf;
+    String claveUsu;
+    private final int RESULT_SELECCIONAR_IMAGEN_SERVICIO=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,40 +68,16 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
 
         fba = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
-        final String currentDateandTime = sdf.format(new Date());
+
 
         bbdd = FirebaseDatabase.getInstance().getReference("USUARIOS");
-        final String claveUsu = fba.getCurrentUser().getUid();
+        claveUsu = fba.getCurrentUser().getUid();
         bbddS = FirebaseDatabase.getInstance().getReference(("SERVICIOS"));
 
         guardarServicio.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if (nombreServicio.getText().toString().isEmpty() || descripcionServicio.getText().toString().isEmpty() ||
-                        precioServicio.getText().toString().isEmpty()|| categorias.toString().isEmpty()) {
-                    Toast.makeText(NuevoServicioActivity.this, "Faltan datos por rellenar", Toast.LENGTH_SHORT).show();
-                } else {
-                    boolean valido = true;
-
-                    if (valido) {
-
-                        Float precioEnFloat= Float.parseFloat(precioServicio.getText().toString());
-                        final String claveS = bbddS.push().getKey();
-
-                        Servicio servicio = new Servicio(nombreServicio.getText().toString(), descripcionServicio.getText().toString(), categorias.getSelectedItem().toString(), precioEnFloat,claveUsu,claveS,1,1, currentDateandTime,"");
-
-                        bbddS.child(claveS).setValue(servicio);
-                        Toast.makeText(NuevoServicioActivity.this, "Servicio añadido", Toast.LENGTH_SHORT).show();
-
-                        //Cerramos resultado
-                        finish();
-
-                    }
-
-                }
                 insertaNuevoServicio();
-
             }
         });
 
@@ -158,6 +140,50 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
         precioServicio.setText(serv.getPrecio().toString());
        // currentDateandTime.setText(obj.getFecha());
     }
+
+    //Metodo que inserta nuevo servicio comprobando los datos introducidos por el usuario
+    public void insertaNuevoServicio(){
+
+        String nombre_servicio = nombreServicio.getText().toString();
+        String descripcion_servicio = descripcionServicio.getText().toString();
+        Float precio_servicio = Float.parseFloat(precioServicio.getText().toString());
+
+        Validadores  v = new Validadores();
+        if(v.editNombreValido(nombre_servicio,nombreServicio) && v.editDescripciónValida(descripcion_servicio,descripcionServicio) && !v.vacioPrecio(precio_servicio)){
+
+            final String claveS = bbddS.push().getKey();
+            sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+            final String currentDateandTime = sdf.format(new Date());
+
+
+            Servicio servicio = new Servicio(nombreServicio.getText().toString(), descripcionServicio.getText().toString(), categorias.getSelectedItem().toString(), precio_servicio,claveUsu,claveS,1,1, currentDateandTime,"");
+
+            bbddS.child(claveS).setValue(servicio);
+            Toast.makeText(NuevoServicioActivity.this, "Servicio añadido", Toast.LENGTH_SHORT).show();
+
+        }else{
+
+            Toast.makeText(NuevoServicioActivity.this, "Faltan datos por rellenar", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void listenerSeleccionarImagenServicio(View view) {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        //Se configura que tipo de archivos queremos (MIME data types)
+        intent.setType("image/*");
+        startActivityForResult(Intent.createChooser(intent, "Seleccione una imagen"), RESULT_SELECCIONAR_IMAGEN_SERVICIO);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == RESULT_SELECCIONAR_IMAGEN_SERVICIO && resultCode == Activity.RESULT_OK) {
+            Uri uriImagen = data.getData();
+            imagenServicio.setImageURI(uriImagen);
+        }
+
+    }
+
 
     public void onFragmentInteraction(Uri uri){}
 
