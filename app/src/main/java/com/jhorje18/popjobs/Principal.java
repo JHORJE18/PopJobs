@@ -16,11 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Adapter;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -30,28 +26,15 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.jhorje18.popjobs.Objetos.Servicio;
 import com.jhorje18.popjobs.Objetos.Usuario;
-
-import java.util.ArrayList;
 
 public class Principal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
 
-    //Vista elements
-    ListView listaPrincipalView;
-
-    //Variables
     private Button b;
-    DatabaseReference refServicios;
     GoogleApiClient googleApiClient;
-    ArrayList<String> listaServicios;
-    ArrayList<String> claveServicios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,26 +43,25 @@ public class Principal extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Vista
         b=(Button)findViewById(R.id.button2) ;
-        listaPrincipalView = (ListView) findViewById(R.id.listPrincipal);
 
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Intent intent = new Intent(MainActivity.this,SegundaActivity.class);
                 //startActivity(intent);
-                Intent intent = new Intent(Principal.this,VisualizaServicioActivity.class);
+                Intent intent = new Intent(Principal.this,ListaServiciosActivity.class);
                 startActivity(intent);
 
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAdd);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Principal.this,NuevoServicioActivity.class));
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
@@ -101,55 +83,6 @@ public class Principal extends AppCompatActivity
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
-        //Iniciamos Referencias y ArrayLists
-        refServicios = FirebaseDatabase.getInstance().getReference("SERVICIOS");
-        listaServicios = new ArrayList<String>();
-        claveServicios = new ArrayList<String>();
-
-        //TODO Carga servicios almacenados en FireBase
-        cargarServicios();
-
-        //Añadimos evento al entrar a un servicio
-        listaPrincipalView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Obtenemos el número del elemento que va a mostrar
-                Intent mostrar = new Intent(Principal.this, VisualizaServicioActivity.class);
-                mostrar.putExtra("claveServicio", claveServicios.get(position));
-                startActivity(mostrar);
-            }
-        });
-    }
-
-    //Servicios que mostrara
-    private void cargarServicios() {
-        refServicios.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                //Creamos adaptados y limpiamos listas
-                ArrayAdapter<String> adaptador;
-                listaServicios.clear();
-                claveServicios.clear();
-
-                //Obtenemos Servicios
-                for (DataSnapshot datasnapshot : dataSnapshot.getChildren()) {
-                    Servicio servicioTEMP = datasnapshot.getValue(Servicio.class);
-
-                    listaServicios.add(servicioTEMP.getNombre());
-                    claveServicios.add(datasnapshot.getKey());
-                }
-
-                adaptador = new ArrayAdapter<String>(Principal.this, android.R.layout.simple_list_item_1, listaServicios);
-                listaPrincipalView.setAdapter(adaptador);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     @Override
@@ -191,7 +124,7 @@ public class Principal extends AppCompatActivity
                                 if(status.isSuccess()){
                                     Toast.makeText(getApplicationContext(), "Deslogueado correctamente de google.", Toast.LENGTH_LONG).show();
                                 }else{
-                                    Toast.makeText(getApplicationContext(), "Problemas deslogeando de google.", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Problemas deslogeando de google." + status.getStatus().toString(), Toast.LENGTH_LONG).show();
                                 }
                             }
                         });

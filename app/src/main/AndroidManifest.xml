@@ -13,7 +13,8 @@
             android:name=".Principal"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,16 +22,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".Login"
-            />
+            android:label="Iniciar Sesión"/>
         <activity
             android:name=".VisualizaServicioActivity"
             android:label="Servicio" />
         <activity
             android:name=".NuevoServicioActivity"
             android:label="Nuevo Servicio" />
-        <activity android:name=".RegistrarActivity" />
-        <activity android:name=".BusquedaServicioActivity"
-            android:label="Búsqueda"/>
+        <activity android:name=".RegistrarActivity"
+            android:label="Registrarse"/>
+        <activity
+            android:name=".BusquedaServicioActivity"
+            android:label="Búsqueda" />
+        <activity android:name=".ListaServiciosActivity"></activity>
     </application>
 
 </manifest>

@@ -22,16 +22,12 @@ public class VisualizaServicioActivity extends AppCompatActivity {
     private TextView nombre, Descripcion, precio, PVP, mapa, fecha;
     private ImageView imagen;
     private Button perfil, mensaje;
-    String claveServicio;
     //private FrameLayout frameMapa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visualiza_servicio);
-
-        //Recibir clave
-        claveServicio = getIntent().getStringExtra("claveServicio");
 
         //nombre del servicio
         nombre =(TextView)findViewById(R.id.TextNombreServicio);
@@ -63,10 +59,6 @@ public class VisualizaServicioActivity extends AppCompatActivity {
         Servicio ser = new Servicio("prueba","estos es la descripcion",
                 " Categoria mecanico",+4f, "","",+0f,+0f,
                 "22/2/2018",null);
-
-        //TODO Cargar información de la clave recibida
-
-
         CargarDatos(ser);
     }
 

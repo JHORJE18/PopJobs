@@ -2,6 +2,7 @@ package com.jhorje18.popjobs;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -64,30 +65,15 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
 
         bbdd = FirebaseDatabase.getInstance().getReference("USUARIOS");
 
-<<<<<<< HEAD
         claveUsu = fba.getCurrentUser().getUid();
         bbddS = FirebaseDatabase.getInstance().getReference(("SERVICIOS"));
 
 
-=======
->>>>>>> 5538b98bbe780b2c295e4f2fa4c283136ae5d415
         guardarServicio.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
-<<<<<<< HEAD
                 crearNuevoServicio();
-=======
-                        bbddS.child(claveS).setValue(servicio);
-                        Toast.makeText(NuevoServicioActivity.this, "Servicio añadido", Toast.LENGTH_SHORT).show();
-
-                        //Cerramos resultado
-                        finish();
-
-                    }
-
-                }
->>>>>>> 5538b98bbe780b2c295e4f2fa4c283136ae5d415
             }
         });
 
@@ -123,7 +109,6 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
         });
     }
 
-<<<<<<< HEAD
     //Método que valida los datos introducidos por el usuario y si son correctos añade un nuevo servicio.
     public void crearNuevoServicio(){
 
@@ -171,8 +156,6 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
     }
 
 
-=======
->>>>>>> 5538b98bbe780b2c295e4f2fa4c283136ae5d415
     public void onFragmentInteraction(Uri uri){}
 
 }
