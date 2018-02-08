@@ -83,7 +83,6 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
                         Float precioEnFloat= Float.parseFloat(precioServicio.getText().toString());
                         final String claveS = bbddS.push().getKey();
 
-
                         Servicio servicio = new Servicio(nombreServicio.getText().toString(), descripcionServicio.getText().toString(), categorias.getSelectedItem().toString(), precioEnFloat,claveUsu,claveS,1,1, currentDateandTime,"");
 
                         bbddS.child(claveS).setValue(servicio);
@@ -95,6 +94,8 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
                     }
 
                 }
+                insertaNuevoServicio();
+
             }
         });
 

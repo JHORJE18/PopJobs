@@ -80,6 +80,15 @@ public class VisualizaServicioActivity extends AppCompatActivity {
             }
         });
 
+        //Creamos servicio
+        Servicio ser = new Servicio("prueba","estos es la descripcion",
+                " Categoria mecanico",+4f, "","",+0f,+0f,
+                "22/2/2018",null);
+
+        //TODO Cargar información de la clave recibida
+
+
+        CargarDatos(ser);
     }
 
 
