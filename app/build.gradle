@@ -32,9 +32,14 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.google.firebase:firebase-auth:11.8.0'
     compile 'com.google.android.gms:play-services-auth:11.8.0'
+<<<<<<< HEAD
     compile 'com.android.support:design:26.1.0'
 }
+=======
+    compile 'com.android.support:cardview-v7:26.1.0'
+>>>>>>> 5538b98bbe780b2c295e4f2fa4c283136ae5d415
 
+}
 
 
 
