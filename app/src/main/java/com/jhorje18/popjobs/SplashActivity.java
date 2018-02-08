@@ -48,8 +48,7 @@ public class  SplashActivity extends AppCompatActivity implements GoogleApiClien
         googleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-
+                .build(); 
 
         new Handler().postDelayed(new Runnable() {
             @Override

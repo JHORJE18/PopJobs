@@ -197,7 +197,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     private void Test_New_User() {
         String idUser = googleSignInResult.getSignInAccount().getId();
         Toast.makeText(getApplicationContext(), idUser, Toast.LENGTH_LONG).show();
-        Query q = referenciaUsuarios.orderByChild("idGoogle").equalTo(idUser);
+        Query q = referenciaUsuarios.orderByChild(  "idGoogle").equalTo(idUser);
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
