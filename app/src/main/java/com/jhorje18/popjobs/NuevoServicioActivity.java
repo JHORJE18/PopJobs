@@ -15,8 +15,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.jhorje18.popjobs.Objetos.Servicio;
 
 import java.text.SimpleDateFormat;
@@ -40,6 +43,12 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_servicio);
+
+        //Recibe clave servicio
+        String claveServicio = getIntent().getStringExtra("claveServicio");
+        if (!claveServicio.equals("")){
+            cargar(claveServicio);
+        }
 
         //Vista
         nombreServicio = (EditText) findViewById(R.id.txtNombreServicio);
@@ -117,6 +126,36 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
                 finish();
             }
         });
+    }
+
+    private void cargar(String claveServicio) {
+
+        //TODO Cargar información de la clave recibida
+        DatabaseReference refservicio = FirebaseDatabase.getInstance().getReference("SERVICIOS").child(claveServicio);
+        refservicio.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Servicio serv = dataSnapshot.getValue(Servicio.class);
+                CargarDatos(serv);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void CargarDatos(Servicio serv) {
+
+        nombreServicio.setText(serv.getNombre());
+        //mostart imagen
+        descripcionServicio.setText(serv.getDescripcion());
+        //mostart ubicacion
+        precioServicio.setText(serv.getPrecio().toString());
+       // currentDateandTime.setText(obj.getFecha());
     }
 
     public void onFragmentInteraction(Uri uri){}

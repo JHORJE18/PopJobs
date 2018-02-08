@@ -13,6 +13,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.jhorje18.popjobs.Objetos.Servicio;
 
 import java.util.Calendar;
@@ -59,15 +64,22 @@ public class VisualizaServicioActivity extends AppCompatActivity {
             }
         });
 
-        //Creamos servicio
-        Servicio ser = new Servicio("prueba","estos es la descripcion",
-                " Categoria mecanico",+4f, "","",+0f,+0f,
-                "22/2/2018",null);
-
         //TODO Cargar información de la clave recibida
+        DatabaseReference refservicio = FirebaseDatabase.getInstance().getReference("SERVICIOS").child(claveServicio);
+        refservicio.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Servicio serv = dataSnapshot.getValue(Servicio.class);
+                CargarDatos(serv);
 
+            }
 
-        CargarDatos(ser);
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 
@@ -78,10 +90,17 @@ public class VisualizaServicioActivity extends AppCompatActivity {
         if (id==R.id.menuEditar)
         {
             Intent intent = new Intent(VisualizaServicioActivity.this,NuevoServicioActivity.class);
+            intent.putExtra("claveS",claveServicio);
             startActivity(intent);
 
         }
+        if (id==R.id.menuCompartir) {
 
+            Intent intCom = new Intent(Intent.ACTION_SEND);
+            intCom.setType("text/plain");
+            intCom.putExtra(Intent.EXTRA_TEXT, "Descargate la mejor app para ofercer servicios! http://popjobs.jhorje18.com");
+            startActivity(Intent.createChooser(intCom, "Compartir con..."));
+        }
         return super.onOptionsItemSelected(item);
     }
 
