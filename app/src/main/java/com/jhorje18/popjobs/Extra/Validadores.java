@@ -77,36 +77,8 @@ public class Validadores {
         return true;
     }
 
-
-
-    //Validar Descripcion de Servicio
-    public boolean editDescripcionValida(String txt, EditText editTXT){
-        //Comprueba longitud
-        if (txt.length() < 3){
-            editTXT.setError("Este campo requiere una longitud mínima de 3 caracteres");
-            return false;
-        }
-        if (txt.length() > 100){
-            editTXT.setError("Este campo no puede contener más de 100 caracteres");
-            return false;
-        }
-
-
-        //Validado correctamente
-        return true;
-    }
-
-
     public boolean vacio(String txt){
         if (txt.isEmpty()){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean vacioPrecio(Float precio){
-        if (precio.toString().isEmpty()){
             return true;
         } else {
             return false;

@@ -23,17 +23,16 @@ public class ListaServiciosActivity extends AppCompatActivity {
 
         registerForContextMenu(lvServicios);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.myFAB);
+        /*
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),NuevoServicioActivity.class);
+                Intent i = new Intent(getApplicationContext(), NuevoServicioActivity.class);
                 startActivity(i);
 
             }
-        });
-
-
+        });*/
     }
 
 
@@ -42,12 +41,5 @@ public class ListaServiciosActivity extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.contextual_menu,menu);
-
-
-    }
-
-
-
-    public void aNuevoServicio(View view) {
     }
 }
