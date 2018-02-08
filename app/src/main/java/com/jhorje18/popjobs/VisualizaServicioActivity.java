@@ -80,15 +80,6 @@ public class VisualizaServicioActivity extends AppCompatActivity {
             }
         });
 
-        //Creamos servicio
-        Servicio ser = new Servicio("prueba","estos es la descripcion",
-                " Categoria mecanico",+4f, "","",+0f,+0f,
-                "22/2/2018",null);
-
-        //TODO Cargar información de la clave recibida
-
-
-        CargarDatos(ser);
     }
 
 
@@ -99,7 +90,7 @@ public class VisualizaServicioActivity extends AppCompatActivity {
         if (id==R.id.menuEditar)
         {
             Intent intent = new Intent(VisualizaServicioActivity.this,NuevoServicioActivity.class);
-            intent.putExtra("claveS",claveServicio);
+            intent.putExtra("claveServicio",claveServicio);
             startActivity(intent);
 
         }

@@ -51,7 +51,7 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
         setContentView(R.layout.activity_nuevo_servicio);
 
         //Recibe clave servicio
-        String claveServicio = getIntent().getStringExtra("claveServicio");
+        String claveServicio = getIntent().getExtras().getString("claveServicio","");
         if (!claveServicio.equals("")){
             cargar(claveServicio);
         }
@@ -77,34 +77,7 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
         guardarServicio.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-<<<<<<< HEAD
-                if (nombreServicio.getText().toString().isEmpty() || descripcionServicio.getText().toString().isEmpty() ||
-                        precioServicio.getText().toString().isEmpty()|| categorias.toString().isEmpty()) {
-                    Toast.makeText(NuevoServicioActivity.this, "Faltan datos por rellenar", Toast.LENGTH_SHORT).show();
-                } else {
-                    boolean valido = true;
-
-                    if (valido) {
-
-                        Float precioEnFloat= Float.parseFloat(precioServicio.getText().toString());
-                        final String claveS = bbddS.push().getKey();
-
-                        Servicio servicio = new Servicio(nombreServicio.getText().toString(), descripcionServicio.getText().toString(), categorias.getSelectedItem().toString(), precioEnFloat,claveUsu,claveS,1,1, currentDateandTime,"");
-
-                        bbddS.child(claveS).setValue(servicio);
-                        Toast.makeText(NuevoServicioActivity.this, "Servicio añadido", Toast.LENGTH_SHORT).show();
-
-                        //Cerramos resultado
-                        finish();
-
-                    }
-
-                }
-                //insertaNuevoServicio();
-
-=======
                 insertaNuevoServicio();
->>>>>>> 0f32f872ba584972407f21c8b3662f0329dd5d60
             }
         });
 

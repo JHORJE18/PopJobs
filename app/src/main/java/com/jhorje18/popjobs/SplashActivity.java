@@ -50,7 +50,6 @@ public class  SplashActivity extends AppCompatActivity implements GoogleApiClien
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
-/*
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -84,7 +83,7 @@ public class  SplashActivity extends AppCompatActivity implements GoogleApiClien
                 }
             }
         }, DURACION_SPLASH);
-*/
+
         startActivity(new Intent(this,Principal.class));
     }
 
