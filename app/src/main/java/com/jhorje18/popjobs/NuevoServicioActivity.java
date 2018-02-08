@@ -67,12 +67,12 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
         bbddS = FirebaseDatabase.getInstance().getReference(("SERVICIOS"));
 
 
-
         guardarServicio.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
                 insertaNuevoServicio();
+
             }
         });
 
@@ -150,8 +150,6 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
         }
 
     }
-
-
 
     public void onFragmentInteraction(Uri uri){}
 
