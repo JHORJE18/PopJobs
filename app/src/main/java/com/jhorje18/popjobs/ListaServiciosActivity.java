@@ -13,6 +13,7 @@ import android.widget.ListView;
 public class ListaServiciosActivity extends AppCompatActivity {
 
     ListView lvServicios;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +24,8 @@ public class ListaServiciosActivity extends AppCompatActivity {
 
         registerForContextMenu(lvServicios);
 
-        /*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        fab = (FloatingActionButton) findViewById(R.id.myFAB);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,7 +33,7 @@ public class ListaServiciosActivity extends AppCompatActivity {
                 startActivity(i);
 
             }
-        });*/
+        });
     }
 
 
@@ -41,5 +42,8 @@ public class ListaServiciosActivity extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.contextual_menu,menu);
+    }
+
+    public void aNuevoServicio(View view) {
     }
 }
