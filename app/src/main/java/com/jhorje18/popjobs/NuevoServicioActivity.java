@@ -84,6 +84,8 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
                         bbddS.child(claveS).setValue(servicio);
                         Toast.makeText(NuevoServicioActivity.this, "Servicio añadido", Toast.LENGTH_SHORT).show();
 
+                        //Cerramos resultado
+                        finish();
 
                     }
 
