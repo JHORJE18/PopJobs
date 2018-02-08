@@ -65,21 +65,22 @@ public class VisualizaServicioActivity extends AppCompatActivity {
         });
 
         //TODO Cargar información de la clave recibida
-        DatabaseReference refservicio = FirebaseDatabase.getInstance().getReference("SERVICIOS").child(claveServicio);
-        refservicio.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Servicio serv = dataSnapshot.getValue(Servicio.class);
-                CargarDatos(serv);
+        if (claveServicio != null) {
+            DatabaseReference refservicio = FirebaseDatabase.getInstance().getReference("SERVICIOS").child(claveServicio);
+            refservicio.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Servicio serv = dataSnapshot.getValue(Servicio.class);
+                    CargarDatos(serv);
 
-            }
+                }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
-
+                }
+            });
+        }
     }
 
 

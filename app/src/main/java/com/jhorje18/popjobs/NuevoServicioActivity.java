@@ -51,8 +51,8 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
         setContentView(R.layout.activity_nuevo_servicio);
 
         //Recibe clave servicio
-        String claveServicio = getIntent().getExtras().getString("claveServicio","");
-        if (!claveServicio.equals("")){
+        String claveServicio = getIntent().getStringExtra("claveServicio");
+        if (claveServicio != null){
             cargar(claveServicio);
         }
 
