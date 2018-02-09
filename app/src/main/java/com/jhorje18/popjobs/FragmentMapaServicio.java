@@ -8,15 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FragmentMapaServicio.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link FragmentMapaServicio#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 public class FragmentMapaServicio extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -64,7 +66,31 @@ public class FragmentMapaServicio extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment_mapa_servicio, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_fragment_mapa_servicio, container, false);
+
+        // Remove old code
+        // SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+
+        // don't recreate fragment everytime ensure last map location/state are maintained
+        SupportMapFragment mapFragment = new SupportMapFragment();
+
+        if (mapFragment == null) {
+            mapFragment = SupportMapFragment.newInstance();
+            mapFragment.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                    LatLng latLng = new LatLng(1.289545, 103.849972);
+                    googleMap.addMarker(new MarkerOptions().position(latLng)
+                            .title("Singapore"));
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                }
+            });
+        }
+
+        // R.id.map is a FrameLayout, not a Fragment
+        getChildFragmentManager().beginTransaction().replace(R.id.map, mapFragment).commit();
+        return rootView;
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

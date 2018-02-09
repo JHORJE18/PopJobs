@@ -2,6 +2,7 @@ package com.jhorje18.popjobs;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,7 +23,7 @@ import com.jhorje18.popjobs.Objetos.Servicio;
 
 import java.util.Calendar;
 
-public class VisualizaServicioActivity extends AppCompatActivity {
+public class VisualizaServicioActivity extends AppCompatActivity implements FragmentMapaServicio.OnFragmentInteractionListener {
 
     private TextView nombre, Descripcion, precio, PVP, mapa, fecha;
     private ImageView imagen;
@@ -130,4 +131,8 @@ public class VisualizaServicioActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        
+    }
 }
