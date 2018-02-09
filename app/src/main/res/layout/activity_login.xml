@@ -4,7 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo_prueba"
+    android:orientation="vertical"
     tools:context="com.jhorje18.popjobs.Login">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        app:srcCompat="@mipmap/icono_pj_round" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/btn_SingIn_Google"
@@ -12,6 +20,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="176dp"></com.google.android.gms.common.SignInButton>
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="10dp">
+
+    </com.google.android.gms.common.SignInButton>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 
 </LinearLayout>

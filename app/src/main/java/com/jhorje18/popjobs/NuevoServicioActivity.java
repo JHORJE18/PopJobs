@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -172,6 +174,35 @@ public class NuevoServicioActivity extends AppCompatActivity implements Fragment
         //Se configura que tipo de archivos queremos (MIME data types)
         intent.setType("image/*");
         startActivityForResult(Intent.createChooser(intent, "Seleccione una imagen"), RESULT_SELECCIONAR_IMAGEN_SERVICIO);
+    }
+
+    //Botones Menu Superior
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getMenuInflater().inflate(R.menu.servicio_edicion, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    //Eventos Botones Menu Superior
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id){
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.mnServGuardar:
+                insertaNuevoServicio();
+                break;
+            case R.id.mnServCancelar:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

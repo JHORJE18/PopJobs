@@ -28,6 +28,7 @@ public class VisualizaServicioActivity extends AppCompatActivity {
     private ImageView imagen;
     private Button perfil, mensaje;
     String claveServicio;
+    Servicio servicioActual;
     //private FrameLayout frameMapa;
 
     @Override
@@ -71,6 +72,7 @@ public class VisualizaServicioActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Servicio serv = dataSnapshot.getValue(Servicio.class);
+                    servicioActual = serv;
                     CargarDatos(serv);
 
                 }
@@ -88,20 +90,23 @@ public class VisualizaServicioActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id==R.id.menuEditar)
-        {
-            Intent intent = new Intent(VisualizaServicioActivity.this,NuevoServicioActivity.class);
-            intent.putExtra("claveServicio",claveServicio);
-            startActivity(intent);
-
+        switch (id){
+            case R.id.menuEditar:
+                Intent intent = new Intent(VisualizaServicioActivity.this,NuevoServicioActivity.class);
+                intent.putExtra("claveServicio",claveServicio);
+                startActivity(intent);
+                break;
+            case R.id.menuCompartir:
+                Intent intCom = new Intent(Intent.ACTION_SEND);
+                intCom.setType("text/plain");
+                intCom.putExtra(Intent.EXTRA_TEXT, "Mira este Servicio de " + servicioActual.getNombre() + " que he encontrado en PopJobs! http://popjobs.jhorje18.com/servicios.php?clave=" + claveServicio);
+                startActivity(Intent.createChooser(intCom, "Compartir " + servicioActual.getNombre() + " a traves de..."));
+                break;
+            case android.R.id.home:
+                finish();
+                break;
         }
-        if (id==R.id.menuCompartir) {
 
-            Intent intCom = new Intent(Intent.ACTION_SEND);
-            intCom.setType("text/plain");
-            intCom.putExtra(Intent.EXTRA_TEXT, "Descargate la mejor app para ofercer servicios! http://popjobs.jhorje18.com");
-            startActivity(Intent.createChooser(intCom, "Compartir con..."));
-        }
         return super.onOptionsItemSelected(item);
     }
 

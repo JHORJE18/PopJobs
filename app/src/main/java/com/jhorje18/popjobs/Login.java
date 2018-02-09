@@ -59,7 +59,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         setContentView(R.layout.activity_login);
 
         //Iniciaciones Firebase
-        referenciaUsuarios = FirebaseDatabase.getInstance().getReference("usuarios");
+        referenciaUsuarios = FirebaseDatabase.getInstance().getReference("USUARIOS");
         firebaseAuth = FirebaseAuth.getInstance();
 
 

@@ -83,8 +83,6 @@ public class  SplashActivity extends AppCompatActivity implements GoogleApiClien
                 }
             }
         }, DURACION_SPLASH);
-
-        startActivity(new Intent(this,Principal.class));
     }
 
     private void Abrir_Acitivty_Login() {
